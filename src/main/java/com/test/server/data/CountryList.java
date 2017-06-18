@@ -40,8 +40,8 @@ public class CountryList {
     countries.add(new Country("Cambodia"," Phnom Penh"));
     countries.add(new Country("Cameroon"," Yaounde"));
 
-        for (int i = 0; i < countries.size(); i++) {
-            countries.get(i).setId(i);
+        for (int i =0; i < countries.size(); i++) {
+            countries.get(i).setId(i + 5);
         }
     }
 
