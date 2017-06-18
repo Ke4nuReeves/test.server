@@ -2,11 +2,11 @@ package com.test.server.controller;
 
 import com.test.server.data.CountryList;
 import com.test.server.data.entity.Country;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -20,5 +20,21 @@ public class DataController {
     @ResponseBody
     public List<Country> getCountries() {
         return new CountryList().getCountries();
+    }
+
+
+    @RequestMapping(value = "/get_music", method = RequestMethod.GET)
+    public void getMusic(HttpServletResponse response) {
+        try {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("music/epic_sax_guy.mp3");
+            OutputStream os = response.getOutputStream();
+            IOUtils.copy(is, os);
+            response.flushBuffer();
+            is.close();
+            os.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("IOError writing file to output stream");
+        }
     }
 }
