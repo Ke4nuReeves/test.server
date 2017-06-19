@@ -2,6 +2,7 @@ package com.test.server.controller;
 
 import com.test.server.data.CountryList;
 import com.test.server.data.entity.Country;
+import com.test.server.data.entity.UserData;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +37,12 @@ public class DataController {
             ex.printStackTrace();
             throw new RuntimeException("IOError writing file to output stream");
         }
+    }
+
+    @RequestMapping(value = "/post_user_data", method = RequestMethod.POST)
+    public void postUserData(@RequestBody UserData userData) {
+        System.out.println("User name: " + userData.getName() + System.lineSeparator()
+                + "Email address: " + userData.getEmail() + System.lineSeparator()
+                + "Password: " + userData.getPassword());
     }
 }
